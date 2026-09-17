@@ -1,0 +1,153 @@
+/*
+  Design tokens for direction A (Editorial).
+  Text colours pass WCAG AA (at least 4.5:1) in light and dark mode.
+*/
+:root {
+	color-scheme: light dark;
+
+	--bg: #f6f2ea;
+	--surface: #fffcf6;
+	--ink: #1f1b16;
+	--ink-soft: #3a332b;
+	--muted: #5c544a;
+	--line: #e4dacb;
+	--line-strong: #cdbfa9;
+	--accent: #1f5e4e;
+	--accent-hover: #174a3d;
+
+	/* Type scale: grows with the viewport, between a mobile and a desktop size. */
+	--step--1: 0.875rem;
+	--step-0: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+	--step-1: clamp(1.1875rem, 1.05rem + 0.6vw, 1.4375rem);
+	--step-2: clamp(1.3125rem, 1.22rem + 0.45vw, 1.5rem);
+	--step-3: clamp(1.625rem, 1.4rem + 1vw, 2.125rem);
+	--step-4: clamp(2.25rem, 1.6rem + 3.2vw, 3.5rem);
+
+	--space-2xs: 0.25rem;
+	--space-xs: 0.5rem;
+	--space-s: 0.75rem;
+	--space-m: 1rem;
+	--space-l: 1.5rem;
+	--space-xl: 2rem;
+	--space-2xl: 3rem;
+	--space-3xl: 4.5rem;
+
+	--container: 54rem;
+	--gutter: clamp(1.125rem, 4vw, 3rem);
+	--radius: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg: #14110d;
+		--surface: #1c1813;
+		--ink: #f2ece1;
+		--ink-soft: #d9d0c2;
+		--muted: #ada395;
+		--line: #3a3229;
+		--line-strong: #5a5044;
+		--accent: #7cc7ae;
+		--accent-hover: #9ad9c4;
+	}
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--ink);
+	font-family: var(--font-sans);
+	font-size: var(--step-0);
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	margin: 0;
+	font-family: var(--font-serif);
+	font-weight: 600;
+	line-height: 1.1;
+	letter-spacing: -0.015em;
+	text-wrap: balance;
+}
+
+p {
+	margin: 0;
+	text-wrap: pretty;
+}
+
+a {
+	color: inherit;
+	text-decoration-line: underline;
+	text-decoration-color: var(--line-strong);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.22em;
+	transition:
+		color 0.2s ease,
+		text-decoration-color 0.2s ease;
+}
+
+a:hover {
+	color: var(--accent);
+	text-decoration-color: currentColor;
+}
+
+:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+	border-radius: 2px;
+}
+
+img,
+svg {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+.container {
+	width: 100%;
+	max-width: var(--container);
+	margin-inline: auto;
+	padding-inline: var(--gutter);
+}
+
+/* Hidden until focused with the keyboard. */
+.skip-link {
+	position: absolute;
+	top: var(--space-m);
+	left: var(--space-m);
+	z-index: 10;
+	padding: var(--space-xs) var(--space-m);
+	border-radius: 999px;
+	background: var(--ink);
+	color: var(--bg);
+	text-decoration: none;
+	transform: translateY(-200%);
+}
+
+.skip-link:focus {
+	transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+	}
+}

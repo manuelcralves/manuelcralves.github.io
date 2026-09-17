@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+	title="Manuel Alves · Software engineer"
+	description="Software engineer working on applied AI, with an MSc from FEUP, University of Porto, and a thesis developed at CERN."
+>
+	<section class="hero">
+		<p class="kicker">Porto, Portugal</p>
+		<h1>Manuel Alves</h1>
+		<p class="lead">
+			Software engineer working on applied AI, with an MSc from FEUP, University of Porto, and a
+			thesis developed at CERN.
+		</p>
+	</section>
+</Base>
+
+<style>
+	.hero {
+		padding-block: var(--space-2xl) var(--space-3xl);
+	}
+
+	.kicker {
+		margin-bottom: var(--space-s);
+		color: var(--accent);
+		font-size: 0.8125rem;
+		font-weight: 600;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+
+	h1 {
+		font-size: var(--step-4);
+		line-height: 1.02;
+		letter-spacing: -0.02em;
+	}
+
+	.lead {
+		max-width: 38ch;
+		margin-top: var(--space-m);
+		color: var(--ink-soft);
+		font-family: var(--font-serif);
+		font-size: var(--step-1);
+		line-height: 1.42;
+	}
+</style>

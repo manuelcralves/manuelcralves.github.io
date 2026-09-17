@@ -1,0 +1,92 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<Font cssVariable="--font-serif" preload />
+		<Font cssVariable="--font-sans" preload />
+	</head>
+	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
+		<header class="site-header container">
+			<a class="site-name" href="/">Manuel Alves</a>
+			<nav aria-label="Main">
+				<ul>
+					<li><a href="/#work">Work</a></li>
+					<li><a href="mailto:manuelcralves@gmail.com">Contact</a></li>
+				</ul>
+			</nav>
+		</header>
+		<main id="main" class="container">
+			<slot />
+		</main>
+		<footer class="container">
+			<div class="site-footer">
+				<p>© {year} Manuel Alves · Built with Astro</p>
+			</div>
+		</footer>
+	</body>
+</html>
+
+<style>
+	.site-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-m);
+		padding-block: var(--space-l);
+	}
+
+	.site-name {
+		font-family: var(--font-serif);
+		font-size: 1.125rem;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+		text-decoration: none;
+	}
+
+	nav ul {
+		display: flex;
+		gap: var(--space-2xs);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	/* Padding keeps each link a comfortable tap target on phones. */
+	nav a {
+		display: inline-block;
+		padding: var(--space-xs) var(--space-s);
+		color: var(--muted);
+		font-size: var(--step--1);
+		text-decoration: none;
+	}
+
+	nav a:hover {
+		color: var(--ink);
+	}
+
+	.site-footer {
+		margin-top: var(--space-3xl);
+		padding-block: var(--space-xl);
+		border-top: 1px solid var(--line);
+		color: var(--muted);
+		font-size: var(--step--1);
+	}
+</style>
