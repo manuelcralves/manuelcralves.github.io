@@ -1,5 +1,31 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+
+// Smaller team projects from MSc courses, one line each.
+const otherProjects = [
+	{
+		title: 'NoSQL Game Store',
+		description:
+			'A Steam-like store with a React and TypeScript front-end, a Flask back-end and CouchDB, with custom map/reduce views behind an analytics dashboard.',
+		href: 'https://github.com/manuelcralves/FEUP-BDNR',
+	},
+	{
+		title: 'Sentiment-Based Recommender',
+		description:
+			'Recommendations on Yelp data that combine collaborative filtering with review sentiment, plus forecasting of how communities evolve.',
+		href: 'https://github.com/manuelcralves/FEUP-CAC',
+	},
+	{
+		title: 'Movie Information Retrieval',
+		description:
+			'A search engine over IMDb data in Apache Solr, evaluated with precision and recall, later extended with semantic search.',
+		href: 'https://github.com/manuelcralves/FEUP-PRI',
+	},
+];
 ---
 
 <Base
@@ -13,12 +39,42 @@ import Base from '../layouts/Base.astro';
 			Software engineer working on applied AI, with an MSc from FEUP, University of Porto, and a
 			thesis developed at CERN.
 		</p>
+		<p class="status">
+			Full-stack developer at zerozero since July 2026. Open to AI engineer, full-stack and graduate
+			roles, in Portugal or abroad.
+		</p>
+		<ul class="links">
+			<li><a href="https://github.com/manuelcralves">GitHub</a></li>
+			<li><a href="https://www.linkedin.com/in/manuel-alves-a56768321">LinkedIn</a></li>
+			<li><a href="mailto:manuelcralves@gmail.com">Email</a></li>
+			<li><a class="cv" href="/Manuel_Alves_CV.pdf">Download CV</a></li>
+		</ul>
+	</section>
+
+	<section id="work" class="work" aria-labelledby="work-title">
+		<h2 id="work-title" class="section-title">Selected work</h2>
+		{projects.map((project, index) => <ProjectCard project={project} index={index} />)}
+	</section>
+
+	<section class="other" aria-labelledby="other-title">
+		<h2 id="other-title" class="section-title">Other projects</h2>
+		<p class="note">Team projects from my MSc courses at FEUP.</p>
+		<ul>
+			{
+				otherProjects.map((item) => (
+					<li>
+						<a href={item.href}>{item.title}</a>
+						<span>{item.description}</span>
+					</li>
+				))
+			}
+		</ul>
 	</section>
 </Base>
 
 <style>
 	.hero {
-		padding-block: var(--space-2xl) var(--space-3xl);
+		padding-block: var(--space-2xl);
 	}
 
 	.kicker {
@@ -43,5 +99,109 @@ import Base from '../layouts/Base.astro';
 		font-family: var(--font-serif);
 		font-size: var(--step-1);
 		line-height: 1.42;
+	}
+
+	.status {
+		max-width: 52ch;
+		margin-top: var(--space-l);
+		color: var(--muted);
+		font-size: var(--step--1);
+	}
+
+	.status::before {
+		content: '';
+		display: inline-block;
+		width: 8px;
+		height: 8px;
+		margin-right: var(--space-xs);
+		border-radius: 50%;
+		background: var(--accent);
+		vertical-align: 0.1em;
+	}
+
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-s) var(--space-l);
+		margin: var(--space-l) 0 0;
+		padding: 0;
+		font-weight: 500;
+		list-style: none;
+	}
+
+	.links a {
+		display: inline-block;
+		padding-block: var(--space-2xs);
+	}
+
+	.links .cv {
+		padding: var(--space-xs) var(--space-m);
+		border: 1px solid var(--ink);
+		border-radius: 999px;
+		text-decoration: none;
+	}
+
+	.links .cv:hover {
+		border-color: var(--accent);
+	}
+
+	.section-title {
+		display: flex;
+		align-items: center;
+		gap: var(--space-s);
+		margin-bottom: var(--space-2xs);
+		color: var(--muted);
+		font-family: var(--font-sans);
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+
+	.section-title::after {
+		content: '';
+		flex: 1;
+		height: 1px;
+		background: var(--line);
+	}
+
+	.work {
+		padding-top: var(--space-l);
+	}
+
+	.other {
+		padding-top: var(--space-3xl);
+	}
+
+	.note {
+		margin: var(--space-s) 0 var(--space-l);
+		color: var(--muted);
+		font-size: var(--step--1);
+	}
+
+	.other ul {
+		display: grid;
+		gap: var(--space-l);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.other li {
+		display: grid;
+		gap: var(--space-2xs);
+	}
+
+	.other li a {
+		justify-self: start;
+		font-family: var(--font-serif);
+		font-size: 1.1875rem;
+		font-weight: 600;
+	}
+
+	.other li span {
+		max-width: 60ch;
+		color: var(--ink-soft);
 	}
 </style>

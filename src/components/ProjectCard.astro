@@ -1,0 +1,59 @@
+---
+/*
+  ProjectCard: one project in the "Selected work" list on the home page.
+  Skeleton for Manuel to complete. Follow the three TODOs below and compare
+  with option A in C:\Users\manue\dev\portfolio-design-directions.html.
+*/
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	project: CollectionEntry<'projects'>;
+	/** Position in the list, starting at 0. Shown as 01, 02, ... */
+	index: number;
+}
+
+const { project, index } = Astro.props;
+const { title, summary, kind, period, stack, highlight } = project.data;
+const href = `/projects/${project.id}/`;
+const number = String(index + 1).padStart(2, '0');
+---
+
+<article class="card">
+	<span class="number" aria-hidden="true">{number}</span>
+	<div class="body">
+		<h3><a href={href}>{title}</a></h3>
+		<p class="summary">{summary}</p>
+		{
+			/*
+			TODO(Manuel) 1: add the meta line under the summary, like the mockup:
+			"Solo project · June to July 2026 · Python, pandas, NumPy"
+			Use kind, period and the first three items of stack: stack.slice(0, 3).join(', ')
+			*/
+		}
+	</div>
+	{
+		/*
+		TODO(Manuel) 2: when highlight exists, show highlight.value large and
+		highlight.label small underneath, aligned to the right.
+		Pattern: { highlight && ( ...the markup... ) }
+		*/
+	}
+</article>
+
+<style>
+	/*
+	TODO(Manuel) 3: style the card like option A of the mockup.
+	- .card: a grid with three columns (44px 1fr auto), gap var(--space-l),
+	  padding-block var(--space-l) and a 1px bottom border in var(--line)
+	- .number and the highlight value: var(--font-serif) and color var(--accent)
+	- h3: var(--font-serif) at var(--step-2); no underline on its link, only on hover
+	- .summary: color var(--ink-soft)
+	- below 640px wide, put the highlight under the body (grid-column: 2)
+	Use only the variables defined in src/styles/global.css.
+	*/
+	.card {
+		display: grid;
+		gap: var(--space-s);
+		padding-block: var(--space-l);
+	}
+</style>

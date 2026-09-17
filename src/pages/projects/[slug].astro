@@ -1,0 +1,184 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const { title, summary, kind, period, stack, team, links } = project.data;
+---
+
+<Base title={`${title} · Manuel Alves`} description={summary}>
+	<article class="project">
+		<a class="back" href="/#work"><span aria-hidden="true">←</span> All projects</a>
+		<header class="project-header">
+			<p class="kicker">{kind} · {period}</p>
+			<h1>{title}</h1>
+			<p class="lead">{summary}</p>
+			<dl class="facts">
+				<div>
+					<dt>Stack</dt>
+					<dd>{stack.join(', ')}</dd>
+				</div>
+				{
+					team && (
+						<div>
+							<dt>Team</dt>
+							<dd>{team.join(', ')}</dd>
+						</div>
+					)
+				}
+			</dl>
+			{
+				links.length > 0 && (
+					<ul class="links">
+						{links.map((link) => (
+							<li>
+								<a href={link.href}>{link.label}</a>
+							</li>
+						))}
+					</ul>
+				)
+			}
+		</header>
+		<div class="prose">
+			<Content />
+		</div>
+	</article>
+</Base>
+
+<style>
+	.project {
+		padding-block: var(--space-l) var(--space-2xl);
+	}
+
+	.back {
+		display: inline-block;
+		padding-block: var(--space-xs);
+		color: var(--muted);
+		font-size: var(--step--1);
+		text-decoration: none;
+	}
+
+	.back:hover {
+		color: var(--accent);
+	}
+
+	.project-header {
+		margin-top: var(--space-xl);
+		padding-bottom: var(--space-xl);
+		border-bottom: 1px solid var(--line);
+	}
+
+	.kicker {
+		margin-bottom: var(--space-s);
+		color: var(--accent);
+		font-size: 0.8125rem;
+		font-weight: 600;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+
+	h1 {
+		font-size: var(--step-4);
+		line-height: 1.02;
+		letter-spacing: -0.02em;
+	}
+
+	.lead {
+		max-width: 40ch;
+		margin-top: var(--space-m);
+		color: var(--ink-soft);
+		font-family: var(--font-serif);
+		font-size: var(--step-1);
+		line-height: 1.42;
+	}
+
+	.facts {
+		display: grid;
+		gap: var(--space-xs);
+		margin: var(--space-l) 0 0;
+		font-size: var(--step--1);
+	}
+
+	.facts div {
+		display: grid;
+		grid-template-columns: 4.5rem 1fr;
+		gap: var(--space-s);
+	}
+
+	.facts dt {
+		color: var(--muted);
+	}
+
+	.facts dd {
+		margin: 0;
+	}
+
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-xs) var(--space-l);
+		margin: var(--space-l) 0 0;
+		padding: 0;
+		font-weight: 500;
+		list-style: none;
+	}
+
+	.links a {
+		display: inline-block;
+		padding-block: var(--space-2xs);
+	}
+
+	/* The Markdown is rendered outside this component's style scope, hence :global. */
+	.prose {
+		max-width: 40rem;
+		padding-top: var(--space-xl);
+	}
+
+	.prose :global(h2) {
+		margin: var(--space-2xl) 0 var(--space-m);
+		font-size: var(--step-3);
+	}
+
+	.prose :global(h2:first-child) {
+		margin-top: 0;
+	}
+
+	.prose :global(p),
+	.prose :global(ul),
+	.prose :global(blockquote) {
+		margin: 0 0 var(--space-m);
+	}
+
+	.prose :global(ul) {
+		padding-left: 1.25rem;
+	}
+
+	.prose :global(li) {
+		margin-bottom: var(--space-xs);
+	}
+
+	.prose :global(li::marker) {
+		color: var(--accent);
+	}
+
+	.prose :global(code) {
+		padding: 0.1em 0.35em;
+		border: 1px solid var(--line);
+		border-radius: 4px;
+		background: var(--surface);
+		font-size: 0.9em;
+	}
+
+	.prose :global(blockquote) {
+		padding: var(--space-m) var(--space-l);
+		border-left: 3px solid var(--accent);
+		border-radius: 0 var(--radius) var(--radius) 0;
+		background: var(--surface);
+	}
+</style>
