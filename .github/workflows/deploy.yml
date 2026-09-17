@@ -1,0 +1,70 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Manual runs only, for now.
+  #
+  # M4, in this order:
+  #   1. Put the real domain in astro.config.mjs and delete the TODO next to it.
+  #   2. Add public/CNAME with that same domain on a single line.
+  #   3. Repository settings, Pages, Source: GitHub Actions.
+  #   4. Uncomment the three lines below, so every push to main publishes.
+  #
+  # push:
+  #   branches: [main]
+  workflow_dispatch:
+
+# The least this needs: read the code, publish to Pages, and prove to Pages
+# who is deploying. Nothing here writes to the repository.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time. A queued run waits instead of cancelling a deploy that
+# is already live, which is what GitHub recommends for Pages.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      # Publishing is public and permanent enough to be worth a guard: stop if
+      # anything unfinished is still in the site, including the placeholder domain.
+      - name: Refuse to publish unfinished content
+        run: |
+          if grep -rInE "TODO\(Manuel\)|example\.com" astro.config.mjs src public; then
+            echo "::error::Unfinished content above. Set the real domain and clear every TODO(Manuel) before publishing."
+            exit 1
+          fi
+
+      - run: npm ci
+
+      - name: Type-check the site
+        run: npm run astro check
+
+      - run: npm run build
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
