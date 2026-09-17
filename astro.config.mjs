@@ -1,8 +1,14 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
+	// TODO(Manuel): replace with the real domain at M4, before the first deploy.
+	// Canonical links, Open Graph tags and the sitemap are all built from it.
+	site: 'https://example.com',
+	// Lists every page in sitemap-index.xml, which robots.txt points to.
+	integrations: [sitemap()],
 	// Fonts are downloaded at build time and served from this site,
 	// so visitors never make requests to Google.
 	fonts: [

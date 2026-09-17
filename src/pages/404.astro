@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+	title="Page not found · Manuel Alves"
+	description="This page does not exist. The projects are all on the home page."
+>
+	<section class="notfound">
+		<p class="kicker">404</p>
+		<h1>Page not found</h1>
+		<p class="lead">
+			This link is broken or the page has moved. Every project is listed on the home page.
+		</p>
+		<p class="back"><a href="/">Go to the home page</a></p>
+	</section>
+</Base>
+
+<style>
+	.notfound {
+		padding-block: var(--space-3xl);
+	}
+
+	.kicker {
+		margin-bottom: var(--space-s);
+		color: var(--accent);
+		font-family: var(--font-serif);
+		font-size: var(--step-2);
+		font-variant-numeric: tabular-nums;
+	}
+
+	h1 {
+		font-size: var(--step-3);
+		letter-spacing: -0.01em;
+	}
+
+	.lead {
+		max-width: 40ch;
+		margin-top: var(--space-m);
+		color: var(--ink-soft);
+		font-family: var(--font-serif);
+		font-size: var(--step-1);
+		line-height: 1.42;
+	}
+
+	.back {
+		margin-top: var(--space-l);
+		font-weight: 500;
+	}
+</style>
