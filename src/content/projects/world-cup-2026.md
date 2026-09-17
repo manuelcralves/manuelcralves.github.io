@@ -13,6 +13,15 @@ links:
     href: https://worldcup2026ml.pt
   - label: Code on GitHub
     href: https://github.com/manuelcralves/WORLD-CUP-2026
+diagrams:
+  - light: ../../assets/diagrams/worldcup-model-light.svg
+    dark: ../../assets/diagrams/worldcup-model-dark.svg
+    alt: Flow chart of the model, from 49 thousand international matches to Elo ratings and six features, then a Poisson model with the Dixon-Coles correction, an XGBoost model and two baselines to compare against, and the measured results.
+    caption: How the forecast is built, and what it had to beat to be worth anything.
+  - light: ../../assets/diagrams/worldcup-stack-light.svg
+    dark: ../../assets/diagrams/worldcup-stack-dark.svg
+    alt: Diagram of what runs where, with three GitHub Actions workflows, the Python model and simulation, Supabase for the prediction game, and the static site.
+    caption: What runs where, with no web framework anywhere.
 ---
 
 ## The problem

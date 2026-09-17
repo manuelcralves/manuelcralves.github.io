@@ -9,7 +9,7 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const { title, summary, kind, period, stack, team, links } = project.data;
+const { title, summary, kind, period, stack, team, links, diagrams } = project.data;
 ---
 
 <Base title={`${title} · Manuel Alves`} description={summary}>
@@ -48,6 +48,33 @@ const { title, summary, kind, period, stack, team, links } = project.data;
 		<div class="prose">
 			<Content />
 		</div>
+		{
+			diagrams.length > 0 && (
+				<section class="diagrams" aria-labelledby="diagrams-title">
+					<h2 id="diagrams-title">Diagrams</h2>
+					{diagrams.map((diagram) => (
+						<figure>
+							{/* The dark version is the same drawing, redrawn for a dark background. */}
+							<picture>
+								<source media="(prefers-color-scheme: dark)" srcset={diagram.dark.src} />
+								<img
+									src={diagram.light.src}
+									width={diagram.light.width}
+									height={diagram.light.height}
+									alt={diagram.alt}
+									loading="lazy"
+									decoding="async"
+								/>
+							</picture>
+							{/* The drawing is wide, so on a phone it is only readable opened on its own. */}
+							<figcaption>
+								{diagram.caption} <a href={diagram.light.src}>Open the full drawing</a>
+							</figcaption>
+						</figure>
+					))}
+				</section>
+			)
+		}
 	</article>
 </Base>
 
@@ -132,6 +159,33 @@ const { title, summary, kind, period, stack, team, links } = project.data;
 	.links a {
 		display: inline-block;
 		padding-block: var(--space-2xs);
+	}
+
+	.diagrams {
+		padding-top: var(--space-xl);
+	}
+
+	.diagrams h2 {
+		margin-bottom: var(--space-l);
+		font-size: var(--step-3);
+	}
+
+	.diagrams figure {
+		margin: 0 0 var(--space-2xl);
+	}
+
+	.diagrams img {
+		width: 100%;
+		height: auto;
+		border: 1px solid var(--line);
+		border-radius: var(--radius);
+		background: var(--surface);
+	}
+
+	.diagrams figcaption {
+		margin-top: var(--space-s);
+		color: var(--muted);
+		font-size: var(--step--1);
 	}
 
 	/* The Markdown is rendered outside this component's style scope, hence :global. */
