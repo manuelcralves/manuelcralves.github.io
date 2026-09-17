@@ -4,9 +4,9 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-	// TODO(Manuel): replace with the real domain at M4, before the first deploy.
-	// Canonical links, Open Graph tags and the sitemap are all built from it.
-	site: 'https://example.com',
+	// Canonical links, Open Graph tags and the sitemap are all built from this.
+	// Moving to a bought domain means changing it here and adding public/CNAME.
+	site: 'https://manuelcralves.github.io',
 	// Lists every page in sitemap-index.xml, which robots.txt points to.
 	integrations: [sitemap()],
 	// Fonts are downloaded at build time and served from this site,

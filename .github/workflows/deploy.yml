@@ -1,16 +1,12 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Manual runs only, for now.
+  # Every push to main publishes the site.
   #
-  # M4, in this order:
-  #   1. Put the real domain in astro.config.mjs and delete the TODO next to it.
-  #   2. Add public/CNAME with that same domain on a single line.
-  #   3. Repository settings, Pages, Source: GitHub Actions.
-  #   4. Uncomment the three lines below, so every push to main publishes.
-  #
-  # push:
-  #   branches: [main]
+  # To move to a bought domain: put it in astro.config.mjs, add public/CNAME
+  # with that same domain on one line, and point the DNS at GitHub Pages.
+  push:
+    branches: [main]
   workflow_dispatch:
 
 # The least this needs: read the code, publish to Pages, and prove to Pages
