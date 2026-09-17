@@ -29,7 +29,7 @@ The 2026 World Cup was the first with 48 teams and 104 matches. I wanted a forec
 
 ## One hard decision
 
-> **TODO(Manuel):** write this paragraph in your own words (3 to 5 sentences). The decision: judge the forecast on the blind version, not the live one. Cover the alternative (the live version, which kept learning from real results and so always looked better), why you chose the blind one, and what it cost (when the blind model picked Argentina and Spain won, the site said so instead of claiming it had called the champion).
+I judged the forecast on the blind version, not the live one. The live version kept learning from real results, so it always looked better, but much of that credit came from things it already knew. The blind version only saw matches played before 11 June 2026, and its settings were tuned on that data alone, so it is the only honest test of whether the model predicts anything. The cost was less impressive numbers and headlines: when the blind model picked Argentina and Spain won, the site said so instead of claiming it had called the champion.
 
 ## Result
 

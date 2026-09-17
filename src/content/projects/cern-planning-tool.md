@@ -25,7 +25,7 @@ This was my MSc thesis, built as an extension of CERN's Scheduling Tools platfor
 
 ## One hard decision
 
-> **TODO(Manuel):** write this paragraph in your own words (3 to 5 sentences). The decision (D1): one abstraction for both halves. The template is both what the coordinator edits and the input to the optimiser. Cover the alternative (what existing tools do: a visual editor on one side, an optimiser on the other, and a translation step between them), why you chose a single template, and what it cost or made harder.
+I used the same template for both halves of the tool: it is what the coordinator edits and also the input the optimiser works on. Existing tools usually handle either the visual side or the optimisation, rarely both on the same model, and with two separate representations what the coordinator sees can drift from what the optimiser uses. The hard part was making one template serve both: simple enough for a coordinator to edit, yet complete enough for CP-SAT, with dependencies, calendars, holidays, and working time and calendar time on the same scale. The payoff is that the structure of a stop is captured once and reused across plans.
 
 ## Result
 

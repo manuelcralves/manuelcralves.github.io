@@ -26,4 +26,4 @@ We trained A2C, DQN and PPO with Stable-Baselines3 for one million steps each, t
 
 ## What we would do differently
 
-> **TODO(Manuel):** write this in your own words (2 to 4 sentences). Notes: in the waste collection, replace the greedy nearest-bin rule with real routing for several trucks (the first item of our future work); on LunarLander, change one hyperparameter at a time and train each setup with several seeds, because each variant changed two or three settings and ran once.
+In the waste collection simulation, we would replace the greedy rule, where each truck goes to the nearest bin it has room for, with real route planning across all trucks, and we would have bins ask for a pickup before they are full, for example at 80%. On LunarLander, we would change one hyperparameter at a time and train each setup with several seeds, so we could tell what caused each difference and rule out luck.

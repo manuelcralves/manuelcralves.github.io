@@ -24,7 +24,7 @@ I wanted to learn how the Model Context Protocol works, so I built a server for 
 
 ## One hard decision
 
-> **TODO(Manuel):** write this paragraph in your own words (3 to 5 sentences). The decision: deterministic rules live in code and judgement stays with Claude. Cover the alternative (putting the rulebook in the prompt and letting the model do the arithmetic), why you did not, and the related line you drew: the server reads but never buys or sells.
+I kept the rules in code and left the judgement to Claude. A language model is good at weighing choices but unreliable at arithmetic, and a legal formation or a transfer that fits the budget has to be right every time, which tested functions guarantee and a prompt does not. Claude handles the real judgement calls, like who to start and who to sell. For the same reason the server only reads: a tool that can spend the team's budget is a different kind of risk, so buying and selling were left out on purpose, and confirming a transfer is still my own click.
 
 ## Result
 
