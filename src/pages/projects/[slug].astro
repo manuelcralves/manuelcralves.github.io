@@ -25,7 +25,7 @@ const { title, summary, kind, period, stack, team, links } = project.data;
 					<dd>{stack.join(', ')}</dd>
 				</div>
 				{
-					team && (
+					team && team.length > 0 && (
 						<div>
 							<dt>Team</dt>
 							<dd>{team.join(', ')}</dd>
@@ -145,7 +145,8 @@ const { title, summary, kind, period, stack, team, links } = project.data;
 		font-size: var(--step-3);
 	}
 
-	.prose :global(h2:first-child) {
+	/* Whatever the Markdown starts with sits tight under the header, heading or paragraph. */
+	.prose :global(> :first-child) {
 		margin-top: 0;
 	}
 

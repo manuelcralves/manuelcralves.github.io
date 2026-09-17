@@ -3,10 +3,19 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 
-const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+// Sort by order, then by id, so two projects sharing an order still come out in a fixed sequence.
+const projects = (await getCollection('projects')).sort(
+	(a, b) => a.data.order - b.data.order || a.id.localeCompare(b.id)
+);
+
+interface OtherProject {
+	title: string;
+	description: string;
+	href: string;
+}
 
 // Smaller team projects from MSc courses, one line each.
-const otherProjects = [
+const otherProjects: OtherProject[] = [
 	{
 		title: 'NoSQL Game Store',
 		description:
@@ -196,7 +205,7 @@ const otherProjects = [
 	.other li a {
 		justify-self: start;
 		font-family: var(--font-serif);
-		font-size: 1.1875rem;
+		font-size: var(--step-1);
 		font-weight: 600;
 	}
 
