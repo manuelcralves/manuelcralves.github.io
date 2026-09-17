@@ -23,13 +23,7 @@ const number = String(index + 1).padStart(2, '0');
 	<div class="body">
 		<h3><a href={href}>{title}</a></h3>
 		<p class="summary">{summary}</p>
-		{
-			/*
-			TODO(Manuel) 1: add the meta line under the summary, like the mockup:
-			"Solo project · June to July 2026 · Python, pandas, NumPy"
-			Use kind, period and the first three items of stack: stack.slice(0, 3).join(', ')
-			*/
-		}
+		<p class="meta">{kind} · {period} · {stack.slice(0, 3).join(', ')}</p>
 	</div>
 	{
 		/*
