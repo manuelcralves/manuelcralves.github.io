@@ -1,7 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import portrait from '../assets/manuel-alves.jpg';
 
 // Sort by order, then by id, so two projects sharing an order still come out in a fixed sequence.
 const projects = (await getCollection('projects')).sort(
@@ -42,22 +44,34 @@ const otherProjects: OtherProject[] = [
 	description="Software engineer working on applied AI, with an MSc from FEUP, University of Porto, and a thesis developed at CERN."
 >
 	<section class="hero">
-		<p class="kicker">Porto, Portugal</p>
-		<h1>Manuel Alves</h1>
-		<p class="lead">
-			Software engineer working on applied AI, with an MSc from FEUP, University of Porto, and a
-			thesis developed at CERN.
-		</p>
-		<p class="status">
-			Full-stack developer at zerozero since July 2026. Open to AI engineer, full-stack and graduate
-			roles, in Portugal or abroad.
-		</p>
-		<ul class="links">
-			<li><a href="https://github.com/manuelcralves">GitHub</a></li>
-			<li><a href="https://www.linkedin.com/in/manuel-alves-a56768321">LinkedIn</a></li>
-			<li><a href="mailto:manuelcralves@gmail.com">Email</a></li>
-			<li><a class="cv" href="/Manuel_Alves_CV.pdf">Download CV</a></li>
-		</ul>
+		{/* The name is right next to it, so the photo carries no extra meaning: empty alt. */}
+		<Image
+			class="portrait"
+			src={portrait}
+			alt=""
+			width={136}
+			height={136}
+			densities={[2]}
+			loading="eager"
+		/>
+		<div class="hero-text">
+			<p class="kicker">Porto, Portugal</p>
+			<h1>Manuel Alves</h1>
+			<p class="lead">
+				Software engineer working on applied AI, with an MSc from FEUP, University of Porto, and a
+				thesis developed at CERN.
+			</p>
+			<p class="status">
+				Full-stack developer at zerozero since July 2026. Open to AI engineer, full-stack and
+				graduate roles, in Portugal or abroad.
+			</p>
+			<ul class="links">
+				<li><a href="https://github.com/manuelcralves">GitHub</a></li>
+				<li><a href="https://www.linkedin.com/in/manuel-alves-a56768321">LinkedIn</a></li>
+				<li><a href="mailto:manuelcralves@gmail.com">Email</a></li>
+				<li><a class="cv" href="/Manuel_Alves_CV.pdf">Download CV</a></li>
+			</ul>
+		</div>
 	</section>
 
 	<section id="work" class="work" aria-labelledby="work-title">
@@ -82,8 +96,46 @@ const otherProjects: OtherProject[] = [
 </Base>
 
 <style>
+	/* Text on the left, portrait on the right; one column on phones, photo first. */
 	.hero {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		gap: var(--space-xl);
+		align-items: start;
 		padding-block: var(--space-2xl);
+	}
+
+	.hero-text {
+		grid-column: 1;
+		grid-row: 1;
+	}
+
+	.portrait {
+		grid-column: 2;
+		grid-row: 1;
+		width: 8.5rem;
+		height: 8.5rem;
+		border-radius: 50%;
+		object-fit: cover;
+		box-shadow: 0 0 0 1px var(--line);
+	}
+
+	@media (max-width: 40rem) {
+		.hero {
+			grid-template-columns: 1fr;
+			gap: var(--space-l);
+		}
+
+		.hero-text,
+		.portrait {
+			grid-column: 1;
+			grid-row: auto;
+		}
+
+		.portrait {
+			width: 6rem;
+			height: 6rem;
+		}
 	}
 
 	.kicker {
