@@ -63,7 +63,7 @@ def preview():
         letter += draw.textlength(char, font=kicker) + 5
     draw.text((x, 196), "Manuel Alves", font=name, fill=INK)
     draw.line((x, 330, 700, 330), fill=LINE, width=2)
-    draw.text((x, 360), "Software engineer working on applied AI", font=lead, fill=INK_SOFT)
+    draw.text((x, 360), "Software engineer", font=lead, fill=INK_SOFT)
     draw.text((x, 424), "MSc from FEUP, University of Porto · Thesis developed at CERN", font=small, fill=MUTED)
     draw.text((x, 470), "github.com/manuelcralves", font=small, fill=MUTED)
 
