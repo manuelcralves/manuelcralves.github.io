@@ -51,7 +51,8 @@ const otherProjects: OtherProject[] = [
 			alt=""
 			width={136}
 			height={136}
-			densities={[2]}
+			widths={[96, 136, 192, 272]}
+			sizes="(max-width: 40rem) 6rem, 8.5rem"
 			loading="eager"
 		/>
 		<div class="hero-text">
@@ -69,7 +70,7 @@ const otherProjects: OtherProject[] = [
 				<li><a href="https://github.com/manuelcralves">GitHub</a></li>
 				<li><a href="https://www.linkedin.com/in/manuel-alves-a56768321">LinkedIn</a></li>
 				<li><a href="mailto:manuelcralves@gmail.com">Email</a></li>
-				<li><a class="cv" href="/Manuel_Alves_CV.pdf">Download CV</a></li>
+				<li><a class="cv" href="/Manuel_Alves_CV.pdf" download>Download CV</a></li>
 			</ul>
 		</div>
 	</section>
@@ -99,6 +100,7 @@ const otherProjects: OtherProject[] = [
 	/* Text on the left, portrait on the right; one column on phones, photo first. */
 	.hero {
 		display: grid;
+		grid-template-areas: 'text portrait';
 		grid-template-columns: minmax(0, 1fr) auto;
 		gap: var(--space-xl);
 		align-items: start;
@@ -106,13 +108,11 @@ const otherProjects: OtherProject[] = [
 	}
 
 	.hero-text {
-		grid-column: 1;
-		grid-row: 1;
+		grid-area: text;
 	}
 
 	.portrait {
-		grid-column: 2;
-		grid-row: 1;
+		grid-area: portrait;
 		width: 8.5rem;
 		height: 8.5rem;
 		border-radius: 50%;
@@ -122,14 +122,11 @@ const otherProjects: OtherProject[] = [
 
 	@media (max-width: 40rem) {
 		.hero {
+			grid-template-areas:
+				'portrait'
+				'text';
 			grid-template-columns: 1fr;
 			gap: var(--space-l);
-		}
-
-		.hero-text,
-		.portrait {
-			grid-column: 1;
-			grid-row: auto;
 		}
 
 		.portrait {
