@@ -21,6 +21,8 @@ const projects = defineCollection({
 			diagrams: z
 				.array(
 					z.object({
+						// Completes the link text for screen readers: "Open the full drawing of ...".
+						name: z.string(),
 						light: image(),
 						dark: image(),
 						alt: z.string(),
