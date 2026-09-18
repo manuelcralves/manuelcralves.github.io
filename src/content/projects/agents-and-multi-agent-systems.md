@@ -22,7 +22,7 @@ Bins fill at unpredictable rates, and a central dispatcher reacts slowly. We sim
 
 ## Reinforcement learning on LunarLander
 
-We trained A2C, DQN and PPO with Stable-Baselines3 for one million steps each, then two variants of each with changed hyperparameters. PPO with a higher learning rate and shorter rollouts scored a mean reward of 271 over 20 evaluation episodes, against 208 with the defaults (200 counts as solved), while two variants never learned to land.
+We trained A2C, DQN and PPO with Stable-Baselines3 for one million steps each, then two variants of each with changed hyperparameters. PPO with a higher learning rate and shorter rollouts scored a mean reward of 271 over 20 evaluation episodes, against 208 with the defaults (200 counts as solved), while four of the six variants ended with negative scores.
 
 ## What we would do differently
 
