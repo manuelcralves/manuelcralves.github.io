@@ -32,22 +32,26 @@ jobs:
           node-version-file: .node-version
           cache: npm
 
-      # Publishing is public, so stop if anything unfinished made it into the
-      # site: a TODO or the placeholder domain. The text inside a PDF is
-      # compressed, so the CV is read with pdftotext first.
-      - name: Refuse to publish unfinished content
+      # Publishing is public, so stop if anything unfinished or private made it
+      # into the site: a TODO, the placeholder domain, or a phone number (the
+      # public CV is the LinkedIn one without the phone). The text inside a PDF
+      # is compressed, so the CV is read with pdftotext first.
+      - name: Refuse to publish unfinished or private content
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils > /dev/null
           placeholder='TODO\(Manuel\)|example\.com'
+          phone='(\+|00)351|9[1236][0-9]([ .-]?[0-9]{3}){2}'
           found=0
           if grep -rnoIE "$placeholder" astro.config.mjs src public; then found=1; fi
+          # SVGs are skipped for phones: their embedded fonts are long base64 runs.
+          if grep -rnoIE --exclude='*.svg' "$phone" astro.config.mjs src public; then found=1; fi
           shopt -s nullglob
           for pdf in public/*.pdf; do
             text="$(pdftotext "$pdf" -)"
-            if grep -noE "$placeholder" <<< "$text"; then echo "  in $pdf"; found=1; fi
+            if grep -noE "$placeholder|$phone" <<< "$text"; then echo "  in $pdf"; found=1; fi
           done
           if [ "$found" = 1 ]; then
-            echo "::error::Unfinished content above. Fix it before publishing."
+            echo "::error::Unfinished or private content above. Fix it before publishing."
             exit 1
           fi
 
